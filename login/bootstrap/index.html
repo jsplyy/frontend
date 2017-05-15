@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<title>用户登录</title>
+	<link rel="stylesheet" type="text/css" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../bootstrap/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" type="text/css" href="css/css.css">
+    <link rel="short icon" href="./img/favicon.png" />
+</head>
+<body>
+	<div class="container">
+        <form class="form-signin" autocomplete="off">
+            <h2 class="form-signin-header">用户登录</h2>
+            <input type="text" class="input-block-level" id="login-email" placeholder="请输入邮箱地址">
+            <input type="password" class="input-block-level" id="login-pass" placeholder="密码">
+            <label class="checkbox">
+                <input type="checkbox" value="remember-me">
+                Remember me
+            </label>
+            <button class="btn btn-large btn-primary signin-btn-login" type="submit">
+                登录
+            </button>
+            <button class="btn btn-large btn-primary signin-btn-cancle" type="submit">
+                取消
+            </button>
+        </form>
+    </div>
+    
+    <script src="../../jquery/jquery-3.2.1.js"></script>
+    <script src="../../my_js/my_cookie.js"></script>
+    <script type="text/javascript">
+        $(".signin-btn-login").ready(function(){
+            var login_email = getCookie("email"),
+                login_pwd = getCookie("password");
+
+            if(login_email !== null) {
+//                设置input文本框的值
+                $("#login-email").val(login_email);
+            }
+            if (login_pwd !== null) {
+//                设置密码文本框的值
+                $("#login-pass").val(login_pwd);
+            }
+        });
+        
+        $("#login-email").blur(function() {
+            if($(".checkbox input[type=checkbox]").is(':checked') && $("#login-email").val() !== '') {
+                setCookie("email",$("#login-email").val());               
+            }
+
+        });
+        $("#login-pass").blur(function() {
+            if($(".checkbox input[type=checkbox]").is(':checked') && $("#login-pass").val() !== '') {
+                setCookie("password",$("#login-pass").val());
+            }
+        });
+        $(".checkbox input[type=checkbox]").click(function(){
+            if($(".checkbox input[type=checkbox]").prop('checked') === false) {
+                delCookie("email");
+                delCookie("password");
+            }
+        });
+        $(".checkbox input[type=checkbox]").click(function(){
+            if($(".checkbox input[type=checkbox]").is(':checked')) {
+                if($("#login-email").val() !== '') {
+                    setCookie("email",$("#login-email").val());               
+                };
+                if($("#login-pass").val() !== '') {
+                    setCookie("password",$("#login-pass").val());
+                };                
+            }
+
+        });
+//        检查CheckBox的值
+//        alert($(".checkbox input[type=checkbox]").is(':checked'));
+//        alert($(".checkbox input[type=checkbox]").prop("checked"));
+
+
+
+    </script>
+</body>
+</html>
